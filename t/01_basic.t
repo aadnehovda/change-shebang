@@ -18,7 +18,7 @@ subtest basic1 => sub {
         ->run;
     is slurp("$tempdir/hoge$_.pl"), <<'...' for 1..3;
 #!/bin/sh
-exec "$(dirname "$0")"/perl -x "$0" "$@"
+exec "`/bin/dirname "$0"`"/perl -x "$0" "$@"
 #!perl
 ...
 };
@@ -33,7 +33,7 @@ subtest basic2 => sub {
         ->run;
     is slurp("$tempdir/hoge.pl"), <<'...';
 #!/bin/sh
-exec "$(dirname "$0")"/perl -x "$0" "$@"
+exec "`/bin/dirname "$0"`"/perl -x "$0" "$@"
 #!perl
 ...
     is slurp("$tempdir/hoge.rb"), "#!/usr/bin/ruby\n";
@@ -51,7 +51,7 @@ subtest permission => sub {
         ->run;
     is slurp("$tempdir/hoge$_.pl"), <<'...' for 1..3;
 #!/bin/sh
-exec "$(dirname "$0")"/perl -x "$0" "$@"
+exec "`/bin/dirname "$0"`"/perl -x "$0" "$@"
 #!perl
 ...
     is( (stat "$tempdir/hoge1.pl")[2] & 07777, 0755 );
@@ -100,7 +100,7 @@ use strict;
         ->run;
     my $expect = <<'...';
 #!/bin/sh
-exec "$(dirname "$0")"/perl -x "$0" "$@"
+exec "`/bin/dirname "$0"`"/perl -x "$0" "$@"
 #!perl
 ...
 
